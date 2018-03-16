@@ -1,0 +1,19 @@
+{
+  "name": "polls-app",
+  "version": "1.0.0",
+  "description": "Create and vote on user created polls.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/myniztan/polls-app.git"
+  },
+  "author": "Adam Risberg",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/myniztan/polls-app/issues"
+  },
+  "homepage": "https://github.com/myniztan/polls-app#readme"
+}
