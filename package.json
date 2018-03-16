@@ -1,10 +1,10 @@
 {
   "name": "polls-app",
   "version": "1.0.0",
-  "description": "Create and vote on user created polls.",
-  "main": "index.js",
+  "description": "Creating, voting, and sharing polls.",
+  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node app.js"
   },
   "repository": {
     "type": "git",
@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/myniztan/polls-app/issues"
   },
-  "homepage": "https://github.com/myniztan/polls-app#readme"
+  "homepage": "https://github.com/myniztan/polls-app#readme",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
 }
