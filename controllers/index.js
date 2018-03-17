@@ -1,40 +1,34 @@
+var User = require("../models/user");
+var bcrypt = require("bcrypt");
+
 exports.index = function(req, res) {
-  res.send("INDEX PAGE!");
+  res.render("index");
 };
 
-// USER
-exports.user = function(req, res) {
-  res.send("USER PAGE " + req.params.id);
+exports.registerForm = function (req, res) {
+  res.render("register", {title: "Register"});
 };
 
-exports.newUser = function(req, res) {
-  res.send("NEW USER FORM");
+exports.register = function(req, res) {
+  var user = new User({
+    username: req.body.username,
+    password: bcrypt.hashSync(req.body.password, 10),
+    created_at: new Date()
+  });
+
+  user.save()
+    .then(function(user) {
+      res.json(user);
+    })
+    .catch(function(err) {
+      res.send(err);
+    });
 };
 
-exports.createUser = function(req, res) {
-  res.send("CREATE USER");
+exports.loginForm = function(req, res) {
+  res.send("LOGIN FORM");
 };
 
-
-// ACCOUNT
-exports.account = function(req, res) {
-  res.send("ACCOUNT PAGE");
-};
-
-
-// POLL
-exports.poll = function(req, res) {
-  res.send("POLL PAGE " + req.params.id);
-};
-
-exports.newPoll = function(req, res) {
-  res.send("NEW POLL FORM");
-};
-
-exports.createPoll = function(req, res) {
-  res.send("CREATE POLL");
-};
-
-exports.deletePoll = function(req, res) {
-  res. send("DELETE POLL " + req.params.id);
-};
+exports.login = function(req, res) {
+  res.send("LOGIN");
+}
