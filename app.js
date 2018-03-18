@@ -25,9 +25,14 @@ require("./config/passport")(passport);
 
 app.set("view engine", "ejs");
 
+app.use(function(req, res, next) {
+  if(req.user) res.locals.currentUser = { id: req.user._id, username: req.user.username };
+  else res.locals.currentUser = null;
+  next();
+});
+
 app.use("/", require("./routes/index"));
 app.use("/poll", require("./routes/poll"));
-app.use("/user", require("./routes/user"));
 
 app.listen(port, function() {
   console.log("App running at:", port);

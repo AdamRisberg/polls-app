@@ -2,4 +2,19 @@
 
 <h1>Homepage Polls</h1>
 
+<div class="polls">
+  <div class="table-header clear">
+    <div class="col-25">Author</div>
+    <div class="col-50">Title</div>
+    <div class="col-15 right">Created</div>
+  </div>
+
+  <% polls.forEach(function(poll) { %>
+    <div class="row clear"><a href="/poll/<%= poll._id %>">
+      <div class="col-25"><%= poll.created_by.username %></div>
+      <div class="col-50"><%= poll.title %></div>
+      <div class="col-15 right"><%= poll.created_at.toLocaleDateString("en-US") %></div>
+    </a></div>
+  <% }) %>
+</div>
 <%- include("partials/footer") %>

@@ -1,0 +1,14 @@
+<%- include("partials/header") %>
+
+<%= currentUser %>
+
+<div><%= poll.title %></div>
+<div><%= poll.created_at.toLocaleDateString() %></div>
+<div><%= poll.created_by.username %></div>
+
+<% poll.options.forEach(function(option) { %>
+  <div><%= option.text %> - <%= option.count %></div>
+<% }) %>
+
+
+<%- include("partials/footer") %>

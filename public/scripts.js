@@ -1,6 +1,8 @@
 var nextOption = 3;
 
 document.querySelector("#add-option").addEventListener("click", function() {
+  if(nextOption > 10) return;
+  
   var options = document.querySelector("#options");
 
   var div = document.createElement("div");
