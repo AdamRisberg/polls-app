@@ -12,8 +12,20 @@ exports.get = function (req, res) {
     });
 };
 
+exports.getData = function(req, res) {
+  Poll.findById(req.params.id)
+    .populate("created_by", "_id username")
+    .exec()
+    .then(function (poll) {
+      res.json(poll);
+    })
+    .catch(function (err) {
+      res.json({});
+    });
+}
+
 exports.new = function (req, res) {
-  if(!req.user) return res.redirect("/");
+  // if(!req.user) return res.redirect("/");
   res.render("new", {title: "New Poll"});
 };
 

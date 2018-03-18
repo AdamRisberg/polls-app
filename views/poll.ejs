@@ -1,7 +1,5 @@
 <%- include("partials/header") %>
 
-<%= currentUser %>
-
 <div><%= poll.title %></div>
 <div><%= poll.created_at.toLocaleDateString() %></div>
 <div><%= poll.created_by.username %></div>
@@ -10,5 +8,9 @@
   <div><%= option.text %> - <%= option.count %></div>
 <% }) %>
 
+<canvas id="poll-chart" width="400" height="400"></canvas>
+
+<script src="/vendors/Chart.min.js"></script>
+<script src="/poll.js"></script>
 
 <%- include("partials/footer") %>
