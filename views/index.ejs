@@ -1,20 +1,30 @@
 <%- include("partials/header", {title: "TESTING PASS TITLE"}) %>
 
-<h1>Homepage Polls</h1>
-
 <div class="polls">
   <div class="table-header clear">
-    <div class="col-25">Author</div>
+    <div class="col-30">Author</div>
     <div class="col-50">Title</div>
-    <div class="col-15 right">Created</div>
+    <div class="col-20 right">Created</div>
   </div>
 
   <% polls.forEach(function(poll) { %>
-    <div class="row clear"><a href="/poll/<%= poll._id %>">
-      <div class="col-25"><%= poll.created_by.username %></div>
+    <a href="/poll/<%= poll._id %>"><div class="row clear">
+      <div class="col-30"><%= poll.created_by.username %></div>
       <div class="col-50"><%= poll.title %></div>
-      <div class="col-15 right"><%= poll.created_at.toLocaleDateString("en-US") %></div>
-    </a></div>
+      <div class="col-20 right"><%= poll.created_at.toLocaleDateString("en-US") %></div>
+    </div></a>
   <% }) %>
+</div>
+
+<div class="pagination">
+  <% pageInfo.pages.forEach(function(page) { %>
+    <% if(pageInfo.page === page) { %>
+      <span class="cur-page"><%= page %></span>
+    <% } else { %>
+      <a class="page-links" href="/?page=<%- page %>"><%= page %></a>
+    <% } %>
+    
+  <% }) %>
+
 </div>
 <%- include("partials/footer") %>

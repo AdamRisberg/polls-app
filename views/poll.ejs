@@ -1,15 +1,41 @@
 <%- include("partials/header") %>
 
-<div><%= poll.title %></div>
-<div><%= poll.created_at.toLocaleDateString() %></div>
-<div><%= poll.created_by.username %></div>
+<div class="poll-box">
+  <div class="clear">
+    <div class="col-50 pad-right">
+      <h3 id="title"><%= poll.title %></h3>
+      <div class="option-group">
+        <% poll.options.forEach(function(option) { %>
+          <div class="option-div">
+            <input type="radio" name="vote" id="<%= option.text %>">
+            <label for="<%= option.text %>" class="option"><%= option.text %></label>
+          </div>
+        <% }) %>
+        <div class="option-div">
+          <input type="radio" name="vote" id="">
+          <input class="custom-option" type="text" name="custom" id="" placeholder="Custom option">
+        </div>
+      </div>
+      <button id="submit-btn" class="btn">Submit Vote</button>
+      <button id="share-btn" class="btn">Share on Twitter</button>
+    </div>
+    <div class="col-50">
+      <canvas id="poll-chart" width="400px" height="400px"></canvas>
+    </div>
+  </div>
+  <div class="poll-footer clear">
+    <div class="col-50 italic">Created:
+      <%= poll.created_at.toLocaleDateString("en-US") %>
+    </div>
+    <div class="col-50 italic right">By:
+      <a href="/user/<%= poll.created_by.id %>">
+        <%= poll.created_by.username %>
+      </a>
+    </div>
+  </div>
+</div>
 
-<% poll.options.forEach(function(option) { %>
-  <div><%= option.text %> - <%= option.count %></div>
-<% }) %>
-
-<canvas id="poll-chart" width="400" height="400"></canvas>
-
+<script src="/vendors/axios.min.js"></script>
 <script src="/vendors/Chart.min.js"></script>
 <script src="/poll.js"></script>
 

@@ -5,12 +5,18 @@ var bcrypt = require("bcrypt");
 var passport = require("passport");
 
 exports.index = function(req, res) {
-  Poll.find({})
-    .limit(20)
-    .populate("created_by", "_id username")
-    .exec()
+  var page = Number(req.query.page) || 1;
+
+  Poll.paginate({}, { page: page, limit: 1, populate: "created_by" })
     .then(function(results) {
-      res.render("index", { polls: results });
+      var pageArr = createPageArray(page, results.pages);
+
+      var pageInfo = {
+        total: results.total,
+        page: results.page,
+        pages: pageArr
+      };
+      res.render("index", { polls: results.docs, pageInfo: pageInfo });
     })
     .catch(function(err) {
       res.send(err);
@@ -60,3 +66,20 @@ exports.user = function(req, res) {
       res.send(err);
     });
 };
+
+function createPageArray(curPage, total) {
+  var pageArr = [];
+  var start = 1;
+  var end = Math.min(10, total);
+
+  if(curPage >= 6) {
+    start = curPage - 5;
+    end = Math.min(end, curPage + 4);
+  }
+
+  while(start <= end) {
+    pageArr.push(start);
+    start++;
+  }
+  return pageArr;
+}
