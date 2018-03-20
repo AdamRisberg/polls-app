@@ -88,7 +88,7 @@ exports.getData = function(req, res) {
 }
 
 exports.new = function (req, res) {
-  // if(!req.user) return res.redirect("/");
+  if(!req.user) return res.redirect("/");
   res.render("new", {title: "New Poll"});
 };
 
@@ -121,9 +121,11 @@ exports.create = function (req, res) {
 };
 
 exports.delete = function (req, res) {
+  if (!req.user) return res.send("/");
+
   Poll.findByIdAndRemove(req.params.id)
     .then(function(poll) {
-      res.redirect("/");
+      res.send("/user/" + req.user._id);
     })
     .catch(function(err) {
       res.send(err);

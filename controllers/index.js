@@ -7,7 +7,7 @@ var passport = require("passport");
 exports.index = function(req, res) {
   var page = Number(req.query.page) || 1;
   
-  Poll.paginate({}, { page: page, limit: 10, populate: "created_by" })
+  Poll.paginate({}, { page: page, limit: 20, populate: "created_by" })
     .then(function(results) {
       var pageArr = createPageArray(page, results.pages);
 
@@ -19,6 +19,34 @@ exports.index = function(req, res) {
       res.render("index", { polls: results.docs, pageInfo: pageInfo });
     })
     .catch(function(err) {
+      res.send(err);
+    });
+};
+
+exports.user = function (req, res) {
+  var page = Number(req.query.page) || 1;
+
+  User.findById(req.params.id)
+    .then(function (user) {
+      if (!user) return res.send("NO USER FOUND");
+      delete user.password;
+
+      Poll.paginate({ created_by: user._id }, {page: page, limit: 20, populate: "created_by" })
+        .then(function (results) {
+          var pageArr = createPageArray(page, results.pages);
+
+          var pageInfo = {
+            total: results.total,
+            page: results.page,
+            pages: pageArr
+          };
+          res.render("user", { title: "User", user: user, polls: results.docs, pageInfo: pageInfo })
+        })
+        .catch(function (err) {
+          res.send(err);
+        });
+    })
+    .catch(function (err) {
       res.send(err);
     });
 };
@@ -44,27 +72,6 @@ exports.login = passport.authenticate("local-login", {
 exports.logout = function(req, res) {
   req.logout();
   res.redirect("/");
-};
-
-exports.user = function(req, res) {
-  User.findById(req.params.id)
-    .then(function(user) {
-      if(!user) return res.send("NO USER FOUND");
-      delete user.password;
-      
-      Poll.find({ created_by: user._id })
-        .limit(20)
-        .exec()
-        .then(function (results) {
-          res.render("user", { title: "User", user: user, polls: results })
-        })
-        .catch(function (err) {
-          res.send(err);
-        });
-    })
-    .catch(function(err) {
-      res.send(err);
-    });
 };
 
 function createPageArray(curPage, total) {

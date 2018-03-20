@@ -9,8 +9,9 @@ axios.get("/poll/data/" + id)
   });
 
 document.querySelector("#submit-btn").addEventListener("click", function() {
-  var selected = document.querySelector("input[name='vote']:checked").nextElementSibling;
+  var selected = document.querySelector("input[name='vote']:checked");
   if(!selected) return;
+  selected = selected.nextElementSibling;
   var vote = "";
   if(selected.value) vote = selected.value;
   else vote = selected.textContent;
@@ -34,6 +35,16 @@ document.querySelector("#share-btn").addEventListener("click", function() {
   var windowFeatures = "menubar=no,width=" + w + ",height=" + h + ",top=" + y + ",left=" + x;
   window.open(twitterUrl, "", windowFeatures);
 });
+
+var deleteBtn = document.querySelector("#delete-btn");
+if(deleteBtn) {
+  deleteBtn.addEventListener("click", function() {
+    axios.delete("/poll/" + id)
+      .then(function(res) {
+        window.location.href = res.data;
+      });
+  });
+}
 
 function setupChart(poll) {
   if(!poll) return;

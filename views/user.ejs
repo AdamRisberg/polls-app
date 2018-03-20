@@ -1,15 +1,46 @@
 <%- include("partials/header") %>
 
-  <h1><%= user.username %></h1>
+<div class="polls">
+  <div class="table-header clear">
+    <div class="center"><%= user.username %>'s Polls</div>
+  </div>
 
   <% polls.forEach(function(poll) { %>
-    <div>
-      <a href="/poll/<%= poll._id %>">
-        <%= poll.created_by.username %> -
-          <%= poll.title %> -
-            <%= poll.created_at.toLocaleDateString() %>
-      </a>
-    </div>
+    <a href="/poll/<%= poll._id %>">
+      <div class="row clear">
+        <div class="col-70">
+          <%= poll.title %>
+        </div>
+        <div class="new-col-30 right">
+          <%= poll.created_at.toLocaleDateString("en-US") %>
+        </div>
+      </div>
+    </a>
+    <% }) %>
+</div>
+
+<div class="pagination">
+  <% if(pageInfo.page > 1 && pageInfo.pages.length > 1) { %>
+    <a class="page-links" href="<%= user._id %>?page=<%- pageInfo.page-1 %>">Previous</a>
+  <% } %>
+
+  <% if(pageInfo.pages.length > 1) { %>
+    <% pageInfo.pages.forEach(function(page) { %>
+      <% if(pageInfo.page === page) { %>
+        <span class="cur-page">
+          <%= page %>
+        </span>
+      <% } else { %>
+        <a class="page-links" href="<%= user._id %>?page=<%- page %>">
+          <%= page %>
+        </a>
+      <% } %>
     <% }) %>
 
-      <%- include("partials/footer") %>
+    <% if(pageInfo.page < pageInfo.pages.length) { %>
+      <a class="page-links" href="<%= user._id %>?page=<%- pageInfo.page+1 %>">Next</a>
+    <% } %>
+  <% } %>
+</div>
+
+<%- include("partials/footer") %>

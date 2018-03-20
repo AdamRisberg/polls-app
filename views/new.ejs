@@ -1,22 +1,27 @@
 <%- include("partials/header") %>
 
-<form action="/poll" method="POST">
-  <label for="title">Poll Title:</label>
-  <input type="text" name="title" id="title">
-  <div id="options">
-    <div id="option_1">
-      <label for="option_1_input">Option 1:</label>
-      <input type="text" name="option_1" id="option_1_input">
+<div class="login-container">
+  <div class="table-header center">NEW POLL</div>
+  <form id="new-form" action="/poll" method="POST">
+    <label for="title">Poll Title:</label>
+    <input type="text" name="title" id="title">
+    <div id="options">
+      <div id="option_1">
+        <label for="option_1_input">Option 1:</label>
+        <input type="text" name="option_1" id="option_1_input">
+      </div>
+      <div id="option_2">
+        <label for="option_2_input">Option 2:</label>
+        <input type="text" name="option_2" id="option_2_input">
+      </div>
     </div>
-    <div id="option_2">
-      <label for="option_2_input">Option 2:</label>
-      <input type="text" name="option_2" id="option_2_input">
+    <div class="new-buttons">
+      <button class="btn" id="add-option" type="button">Add Option</button>
+      <button class="btn" id="remove-option" type="button">Remove Option</button>
+      <button class="btn" id="new-poll-btn" type="submit">SUBMIT POLL</button>
     </div>
-  </div>
-  <button id="add-option" type="button">Add Option</button>
-  <button id="remove-option" type="button">Remove Option</button>
-  <button type="submit">CREATE</button>
-</form>
+  </form>
+</div>
 
 <script src="/new.js"></script>
 

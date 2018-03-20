@@ -31,7 +31,7 @@ a:visited {
 .table-header {
   padding: 8px 20px;
   font-weight: bold;
-  background-color: #5e5e66;
+  background-color: #4a4649;
   color: #fff;
   text-transform: uppercase;
 }
@@ -44,9 +44,9 @@ a:visited {
 }
 
 .polls {
-  background-color: #5e5e66;
+  background-color: #4a4649;
   overflow: hidden;
-  border: 2px solid #5e5e66;
+  border: 2px solid #4a4649;
   border-radius: 8px;
 }
 
@@ -61,7 +61,8 @@ a:visited {
 }
 
 .row:hover {
-  background-color: #ece4dc;
+  background-color: #0084b4;
+  color: #f8f9fb;
 }
 
 .right {
@@ -84,6 +85,11 @@ a:visited {
 }
 
 .col-30 {
+  float: left;
+  width: 30%;
+}
+
+.new-col-30 {
   float: left;
   width: 30%;
 }
@@ -174,6 +180,10 @@ h3 {
   background-color: #0084b4;
 }
 
+#share-btn i {
+  padding-right: 6px;
+}
+
 #delete-btn {
   background-color: #aa0000;
 }
@@ -215,8 +225,8 @@ h3 {
 }
 
 .nav-item:hover {
-  background-color: #ece4dc;
-  color: #171316;
+  background-color: #0084b4;
+  color: #f8f9fb;
   cursor: pointer;
 }
 
@@ -226,8 +236,7 @@ h3 {
 }
 
 .dropdown:hover .drop-btn {
-  background-color: #ece4dc;
-  color: #171316;
+  background-color: #0084b4;
 }
 
 .dropdown {
@@ -245,6 +254,7 @@ h3 {
   color: #171316;
   background-color: #f8f9fb;
   border: 1px solid #b1b4bd;
+  border-top: none;
   top: 42px;
   right: 0;
   left: auto;
@@ -318,7 +328,7 @@ input[type=checkbox]:checked~.nav-group {
 .login-container {
   width: 400px;
   margin: 0 auto;
-  border: 2px solid #5e5e66;
+  border: 2px solid #4a4649;
   border-radius: 10px;
   overflow: hidden;
 }
@@ -328,13 +338,15 @@ input[type=checkbox]:checked~.nav-group {
 }
 
 #login-form,
-#register-form {
+#register-form,
+#new-form {
   padding: 30px 40px;
   background-color: #f8f9fb;
 }
 
 #login-form input,
-#register-form input {
+#register-form input,
+#new-form input {
   font-size: 0.8em;
   font-family: inherit;
   padding: 5px;
@@ -350,9 +362,22 @@ input[type=checkbox]:checked~.nav-group {
 }
 
 #login-form button:hover,
-#register-form button:hover {
+#register-form button:hover,
+#new-form button:hover {
   opacity: 1;
   cursor: pointer;
+}
+
+.new-buttons button {
+  background-color: #171316;
+}
+
+#remove-option {
+  background-color: #aa0000;
+}
+
+#add-option {
+  background-color: #0084b4;
 }
 
 @media only screen and (max-width: 700px) {

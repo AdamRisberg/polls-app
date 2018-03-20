@@ -22,10 +22,12 @@
         <button id="submit-btn" class="btn sub-disabled" disabled>Already Voted</button>
       <% } %>
       
-      <button id="share-btn" class="btn btn-hover">Share on Twitter</button>
+      <button id="share-btn" class="btn btn-hover">
+        <i class="ion-social-twitter"></i>Share on Twitter
+      </button>
 
       <% if(canDelete) { %>
-        <button id="delete-btn" class="btn btn-hover" disabled>Delete Poll</button>
+        <button id="delete-btn" class="btn btn-hover">Delete Poll</button>
       <% } %>
     </div>
     <div class="col-50">
