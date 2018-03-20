@@ -1,11 +1,20 @@
 var Poll = require("../models/poll");
 
 exports.get = function(req, res) {
+  var ip = req.header('x-forwarded-for') || req.connection.remoteAddress;
+ 
   Poll.findById(req.params.id)
     .populate("created_by", "_id username")
     .exec()
     .then(function(poll) {
-      res.render("poll", { title: "Poll", poll: poll });
+      var canVote = poll.votes.includes(ip) ? false : true;
+      var canDelete = false;
+      if (req.user) {
+        if (req.user._id.toString() === poll.created_by._id.toString()) {
+          canDelete = true;
+        }
+      }
+      res.render("poll", { title: "Poll", poll: poll, canVote: canVote, canDelete: canDelete });
     })
     .catch(function(err) {
       res.redirect("/");
@@ -22,13 +31,12 @@ exports.random = function(req, res) {
         .skip(rand)
         .exec()
         .then(function(poll) {
-          if(!poll) res.redirect("/");
-          
+          if(poll === null) return res.redirect("/");
           res.redirect("/poll/" + poll._id);
         })
         .catch(function(err) {
           res.send(err);
-        })
+        });
     })
     .catch(function(err) {
       res.send(err);
@@ -52,7 +60,9 @@ exports.vote = function(req, res) {
 
       if(!found) poll.options.push({ text: vote, count: 1 });
 
-      Poll.findByIdAndUpdate(req.params.id, { options: poll.options }, { new: true })
+      poll.votes.push(ip);
+
+      Poll.findByIdAndUpdate(req.params.id, { options: poll.options, votes: poll.votes }, { new: true })
         .then(function(udpatedPoll) {
           res.send(udpatedPoll);
         })

@@ -17,14 +17,23 @@
 </div>
 
 <div class="pagination">
-  <% pageInfo.pages.forEach(function(page) { %>
-    <% if(pageInfo.page === page) { %>
-      <span class="cur-page"><%= page %></span>
-    <% } else { %>
-      <a class="page-links" href="/?page=<%- page %>"><%= page %></a>
-    <% } %>
-    
-  <% }) %>
+  <% if(pageInfo.page > 1 && pageInfo.pages.length > 1) { %>
+    <a class="page-links" href="/?page=<%- pageInfo.page-1 %>">Previous</a>
+  <% } %>
 
+  <% if(pageInfo.pages.length > 1) { %>
+    <% pageInfo.pages.forEach(function(page) { %>
+      <% if(pageInfo.page === page) { %>
+        <span class="cur-page"><%= page %></span>
+      <% } else { %>
+        <a class="page-links" href="/?page=<%- page %>"><%= page %></a>
+      <% } %>
+    <% }) %>
+
+    <% if(pageInfo.page < pageInfo.pages.length) { %>
+      <a class="page-links" href="/?page=<%- pageInfo.page+1 %>">Next</a>
+    <% } %>
+  <% } %>
 </div>
+
 <%- include("partials/footer") %>

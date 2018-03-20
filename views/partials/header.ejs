@@ -6,17 +6,33 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title><%= title %></title>
   <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+  <link rel="stylesheet" href="/vendors/ionicons.min.css">
   <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
   <div class="nav">
     <div class="container clear">
-      <div class="col-20"><a class="brand" href="/">POLLS APP</a></div>
-      <ul class="nav-group col-80">
-        <li class="nav-item"><a href="/">Home</a></li>
-        <li class="nav-item"><a href="/poll/random">Random Poll</a></li>
-        <li class="nav-item">Account</li>
-      </ul>
+      <div class="col-30"><a class="brand" href="/">EXPRESS POLLS</a></div>
+      <label for="hamburger" class="hamburger">
+        <i id="menu-btn" class="ion-navicon"></i>
+      </label>
+      <input type="checkbox" role="button" id="hamburger">
+      <div id="nav-group" class="nav-group col-70">
+        <a class="nav-item" href="/">Home</a>
+        <a class="nav-item" href="/poll/random">Random Poll</a>
+        <% if(currentUser) { %>
+          <div class="dropdown">
+            <span id="drop-btn" class="drop-btn">Account<i id="arrow" class="ion-arrow-down-b"></i></span>
+            <div class="dropdown-content">
+              <a class="nav-item" href="/user/<%= currentUser.id %>">My Polls</a>
+              <a class="nav-item" href="/logout">Logout</a>
+            </div>
+          </div>
+        <% } else { %>
+          <a class="nav-item" href="/register">Register</a>
+          <a class="nav-item" href="/login">Login</a>
+        <% } %>
+      </div>
     </div>
   </div>
   <div class="container">

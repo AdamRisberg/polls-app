@@ -16,8 +16,17 @@
           <input class="custom-option" type="text" name="custom" id="" placeholder="Custom option">
         </div>
       </div>
-      <button id="submit-btn" class="btn">Submit Vote</button>
-      <button id="share-btn" class="btn">Share on Twitter</button>
+      <% if(canVote) { %>
+        <button id="submit-btn" class="btn btn-hover sub-btn">Submit Vote</button>
+      <% } else { %>
+        <button id="submit-btn" class="btn sub-disabled" disabled>Already Voted</button>
+      <% } %>
+      
+      <button id="share-btn" class="btn btn-hover">Share on Twitter</button>
+
+      <% if(canDelete) { %>
+        <button id="delete-btn" class="btn btn-hover" disabled>Delete Poll</button>
+      <% } %>
     </div>
     <div class="col-50">
       <canvas id="poll-chart" width="400px" height="400px"></canvas>

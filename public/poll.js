@@ -17,6 +17,7 @@ document.querySelector("#submit-btn").addEventListener("click", function() {
 
   axios.post("/poll/vote/" + id, { vote: vote })
     .then(function(res) {
+      disableSubmit();
       updateChart(res.data);
     })
     .catch(function(err) {
@@ -26,7 +27,7 @@ document.querySelector("#submit-btn").addEventListener("click", function() {
 
 document.querySelector("#share-btn").addEventListener("click", function() {
   var w = 600;
-  var h = 280;
+  var h = 260;
   var y = window.outerHeight / 2 + window.screenY - (h / 2)
   var x = window.outerWidth / 2 + window.screenX - (w / 2)
   var twitterUrl = "https://twitter.com/intent/tweet?text=" + title + "&url=" + url + "&hashtags=ExpressPolls";
@@ -91,6 +92,14 @@ function updateChart(poll) {
     pieChart.config.data.datasets[0].data.push(option.count);
   });
 
-  console.log(pieChart.config.data);
   pieChart.update();
+}
+
+function disableSubmit() {
+  var btn = document.querySelector("#submit-btn");
+  btn.textContent = "Already Voted";
+  btn.setAttribute("disabled", "");
+  btn.classList.remove("sub-btn");
+  btn.classList.remove("btn-hover");
+  btn.classList.add("sub-disabled");
 }

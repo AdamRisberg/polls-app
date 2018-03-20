@@ -6,7 +6,8 @@ var PollSchema = new Schema({
   title: String,
   created_at: Date,
   created_by: { type: Schema.Types.ObjectId, ref: "User"},
-  options: [{ text: String, count: Number }]
+  options: [{ text: String, count: Number }],
+  votes: [ String ]
 });
 
 PollSchema.plugin(mongoosePaginate);

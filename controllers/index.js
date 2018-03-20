@@ -6,8 +6,8 @@ var passport = require("passport");
 
 exports.index = function(req, res) {
   var page = Number(req.query.page) || 1;
-
-  Poll.paginate({}, { page: page, limit: 1, populate: "created_by" })
+  
+  Poll.paginate({}, { page: page, limit: 10, populate: "created_by" })
     .then(function(results) {
       var pageArr = createPageArray(page, results.pages);
 
