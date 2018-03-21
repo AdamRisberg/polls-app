@@ -93,6 +93,14 @@ a:visited {
   width: 30%;
 }
 
+.main .col-50 {
+  width: 55%;
+}
+
+.main .col-30 {
+  width: 25%;
+}
+
 .new-col-30 {
   float: left;
   width: 30%;
