@@ -7,7 +7,7 @@ var passport = require("passport");
 exports.index = function(req, res, next) {
   var page = Number(req.query.page) || 1;
   
-  Poll.paginate({}, { page: page, limit: 20, populate: "created_by" })
+  Poll.paginate({}, { page: page, limit: 20, sort: { created_at: -1 }, populate: "created_by" })
     .then(function(results) {
       var pageArr = createPageArray(page, results.pages);
 
@@ -31,7 +31,7 @@ exports.user = function (req, res, next) {
       if (!user) return res.send("NO USER FOUND");
       delete user.password;
 
-      Poll.paginate({ created_by: user._id }, {page: page, limit: 20, populate: "created_by" })
+      Poll.paginate({ created_by: user._id }, { page: page, limit: 20, sort: { created_at: -1 }, populate: "created_by" })
         .then(function (results) {
           var pageArr = createPageArray(page, results.pages);
 
