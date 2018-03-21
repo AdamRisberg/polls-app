@@ -93,6 +93,14 @@ a:visited {
   width: 30%;
 }
 
+.user-main .col-70 {
+  width: 75%;
+}
+
+.user-main .col-30 {
+  width: 25%;
+}
+
 .main .col-50 {
   width: 55%;
 }
