@@ -16,7 +16,7 @@ exports.index = function(req, res, next) {
         page: results.page,
         pages: pageArr
       };
-      res.render("index", { polls: results.docs, pageInfo: pageInfo });
+      res.render("index", { polls: results.docs, pageInfo: pageInfo, title: "Express Polls" });
     })
     .catch(function(err) {
       next(err);
@@ -40,7 +40,7 @@ exports.user = function (req, res, next) {
             page: results.page,
             pages: pageArr
           };
-          res.render("user", { title: "User", user: user, polls: results.docs, pageInfo: pageInfo })
+          res.render("user", { title: user.username + " - Express Polls", user: user, polls: results.docs, pageInfo: pageInfo })
         })
         .catch(function (err) {
           next(err);
@@ -52,7 +52,7 @@ exports.user = function (req, res, next) {
 };
 
 exports.registerForm = function (req, res) {
-  res.render("register", {title: "Register"});
+  res.render("register", {title: "Register - Express Polls"});
 };
 
 exports.register = passport.authenticate("local-signup", {
@@ -61,7 +61,7 @@ exports.register = passport.authenticate("local-signup", {
 });
 
 exports.loginForm = function(req, res) {
-  res.render("login", { title: "Login" });
+  res.render("login", { title: "Login - Express Polls" });
 };
 
 exports.login = passport.authenticate("local-login", {

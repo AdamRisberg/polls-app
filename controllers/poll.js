@@ -14,7 +14,7 @@ exports.get = function(req, res, next) {
           canDelete = true;
         }
       }
-      res.render("poll", { title: "Poll", poll: poll, canVote: canVote, canDelete: canDelete });
+      res.render("poll", { title: poll.title + " - Express Polls", poll: poll, canVote: canVote, canDelete: canDelete });
     })
     .catch(function(err) {
       next(err);
@@ -89,7 +89,7 @@ exports.getData = function(req, res, next) {
 
 exports.new = function (req, res) {
   if(!req.user) return res.redirect("/");
-  res.render("new", {title: "New Poll"});
+  res.render("new", {title: "New - Express Polls"});
 };
 
 exports.create = function (req, res, next) {
