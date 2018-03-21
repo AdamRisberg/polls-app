@@ -2,6 +2,9 @@
 
   <div class="login-container">
     <div class="table-header center">REGISTER</div>
+    <% if(message.length) { %>
+      <div class="failure-message"><%= message %></div>
+    <% } %>
     <form id="register-form" action="/register" method="POST">
       <label for="username">Username:</label>
       <input type="text" name="username" id="username" pattern=".{3,15}" title="Must be between 3 and 15 characters" autofocus required>

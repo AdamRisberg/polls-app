@@ -7,6 +7,7 @@ var passport = require("passport");
 var cookieParser = require("cookie-parser");
 var session = require("express-session");
 var expressSanitized = require("express-sanitize-escape");
+var flash = require("connect-flash");
 var middleware = require("./middleware/middleware");
 
 var app = express();
@@ -20,6 +21,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(expressSanitized.middleware());
 app.use(express.static("public"));
+app.use(flash());
 
 app.use(session({ secret: process.env.SESSION_SECRET, resave: false, saveUninitialized: false }));
 app.use(passport.initialize());

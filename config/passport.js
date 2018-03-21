@@ -29,7 +29,7 @@ module.exports = function(passport) {
           });
       })
       .catch(function(err) {
-        done(err, false, { message: "Error" });
+        done(err, false, { message: "Error: Try again later" });
       });
   }));
 
@@ -54,11 +54,11 @@ module.exports = function(passport) {
             done(null, user);
           })
           .catch(function (err) {
-            done(err, false, { message: "Error" });
+            done(err, false, { message: "Error: Try again later" });
           });
       })
       .catch(function(err) {
-        done(err, false, { message: "Error" });
+        done(err, false, { message: "Error: Try again later" });
       });
   }));
 };

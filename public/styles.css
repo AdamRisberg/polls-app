@@ -380,6 +380,13 @@ input[type=checkbox]:checked~.nav-group {
   background-color: #0084b4;
 }
 
+.failure-message {
+  padding: 5px;
+  background-color: #e42828;
+  color: #f8f9fb;
+  text-align: center;
+}
+
 @media only screen and (max-width: 700px) {
   .poll-box .col-50 {
     width: 100%;

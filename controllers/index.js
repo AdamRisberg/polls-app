@@ -52,21 +52,23 @@ exports.user = function (req, res, next) {
 };
 
 exports.registerForm = function (req, res) {
-  res.render("register", {title: "Register - Express Polls"});
+  res.render("register", { title: "Register - Express Polls", message: req.flash("error")} );
 };
 
 exports.register = passport.authenticate("local-signup", {
   successRedirect: "/",
-  failureRedirect: "/register"
+  failureRedirect: "/register",
+  failureFlash: true
 });
 
 exports.loginForm = function(req, res) {
-  res.render("login", { title: "Login - Express Polls" });
+  res.render("login", { title: "Login - Express Polls", message: req.flash("error") });
 };
 
 exports.login = passport.authenticate("local-login", {
   successRedirect: "/",
-  failureRedirect: "/login"
+  failureRedirect: "/login",
+  failureFlash: true
 });
 
 exports.logout = function(req, res) {
