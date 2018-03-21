@@ -1,5 +1,7 @@
 var router = require("express").Router();
 var controller = require("../controllers/poll");
+var expressSanitized = require("express-sanitize-escape");
+expressSanitized.sanitizeParams(router, ["id"]);
 
 router.post("/", controller.create);
 router.get("/", controller.new);

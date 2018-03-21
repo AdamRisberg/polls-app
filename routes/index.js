@@ -1,5 +1,7 @@
 var router = require("express").Router();
 var controller = require("../controllers/index");
+var expressSanitized = require("express-sanitize-escape");
+expressSanitized.sanitizeParams(router, ["id"]);
 
 router.get("/", controller.index);
 router.get("/register", controller.registerForm);

@@ -6,6 +6,7 @@ var bodyParser = require("body-parser");
 var passport = require("passport");
 var cookieParser = require("cookie-parser");
 var session = require("express-session");
+var expressSanitized = require("express-sanitize-escape");
 var middleware = require("./middleware/middleware");
 
 var app = express();
@@ -17,6 +18,7 @@ mongoose.connect(process.env.DB_HOST);
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(expressSanitized.middleware());
 app.use(express.static("public"));
 
 app.use(session({ secret: process.env.SESSION_SECRET, resave: false, saveUninitialized: false }));
