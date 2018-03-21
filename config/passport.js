@@ -20,12 +20,12 @@ module.exports = function(passport) {
   function(username, password, done) {
     User.findOne({ username: username })
       .then(function(user) {
-        if(!user) return done(null, false, { message: "Bad username" });
+        if(!user) return done(null, false, { message: "Incorrect username" });
 
         bcrypt.compare(password, user.password)
           .then(function(result) {
             if(result) done(null, user);
-            else done(null, false, { message: "Bad password" });
+            else done(null, false, { message: "Incorrect password" });
           });
       })
       .catch(function(err) {
@@ -41,6 +41,7 @@ module.exports = function(passport) {
     User.findOne({ username: username })
       .then(function(found) {
         if(found) return done(null, false, { message: "Username already taken" });
+        if(!username || !password) return done(null, false, { message: "Username and password required" });
 
         var user = new User({
           username: username,

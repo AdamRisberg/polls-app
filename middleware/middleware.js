@@ -1,8 +1,9 @@
 var winston = require("winston");
+var handleExceptions = process.env.NODE_ENV === "production";
 
 winston.add(winston.transports.File, {
   filename: "error.log",
-  handleExceptions: true,
+  handleExceptions: handleExceptions,
   humanReadableUnhandledException: true
 });
 

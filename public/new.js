@@ -16,6 +16,7 @@ document.querySelector("#add-option").addEventListener("click", function() {
   input.setAttribute("type", "text");
   input.setAttribute("name", "option_" + nextOption);
   input.setAttribute("id", "option_" + nextOption + "_input");
+  input.setAttribute("required", "");
 
   div.appendChild(label);
   div.appendChild(input);
