@@ -4,7 +4,7 @@ var ObjectId = require("mongoose").Types.ObjectId;
 var bcrypt = require("bcrypt");
 var passport = require("passport");
 
-exports.index = function(req, res) {
+exports.index = function(req, res, next) {
   var page = Number(req.query.page) || 1;
   
   Poll.paginate({}, { page: page, limit: 20, populate: "created_by" })
@@ -19,11 +19,11 @@ exports.index = function(req, res) {
       res.render("index", { polls: results.docs, pageInfo: pageInfo });
     })
     .catch(function(err) {
-      res.send(err);
+      next(err);
     });
 };
 
-exports.user = function (req, res) {
+exports.user = function (req, res, next) {
   var page = Number(req.query.page) || 1;
 
   User.findById(req.params.id)
@@ -43,11 +43,11 @@ exports.user = function (req, res) {
           res.render("user", { title: "User", user: user, polls: results.docs, pageInfo: pageInfo })
         })
         .catch(function (err) {
-          res.send(err);
+          next(err);
         });
     })
     .catch(function (err) {
-      res.send(err);
+      next(err);
     });
 };
 
@@ -66,7 +66,7 @@ exports.loginForm = function(req, res) {
 
 exports.login = passport.authenticate("local-login", {
   successRedirect: "/",
-  failureRedirect: "/register"
+  failureRedirect: "/login"
 });
 
 exports.logout = function(req, res) {

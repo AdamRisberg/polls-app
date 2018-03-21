@@ -1,6 +1,6 @@
 var Poll = require("../models/poll");
 
-exports.get = function(req, res) {
+exports.get = function(req, res, next) {
   var ip = req.header('x-forwarded-for') || req.connection.remoteAddress;
  
   Poll.findById(req.params.id)
@@ -17,11 +17,11 @@ exports.get = function(req, res) {
       res.render("poll", { title: "Poll", poll: poll, canVote: canVote, canDelete: canDelete });
     })
     .catch(function(err) {
-      res.redirect("/");
+      next(err);
     });
 };
 
-exports.random = function(req, res) {
+exports.random = function(req, res, next) {
   Poll.count()
     .exec()
     .then(function(count) {
@@ -39,11 +39,11 @@ exports.random = function(req, res) {
         });
     })
     .catch(function(err) {
-      res.send(err);
+      next(err);
     });
 };
 
-exports.vote = function(req, res) {
+exports.vote = function(req, res, next) {
   var ip = req.header('x-forwarded-for') || req.connection.remoteAddress;
   var vote = req.body.vote;
 
@@ -67,15 +67,15 @@ exports.vote = function(req, res) {
           res.send(udpatedPoll);
         })
         .catch(function(err) {
-          res.send(err);
+          next(err);
         });
     })
     .catch(function(err) {
-      res.send(err);
+      next(err);
     });
 }
 
-exports.getData = function(req, res) {
+exports.getData = function(req, res, next) {
   Poll.findById(req.params.id)
     .populate("created_by", "_id username")
     .exec()
@@ -83,7 +83,7 @@ exports.getData = function(req, res) {
       res.json(poll);
     })
     .catch(function (err) {
-      res.json({});
+      next(err);
     });
 }
 
@@ -92,7 +92,7 @@ exports.new = function (req, res) {
   res.render("new", {title: "New Poll"});
 };
 
-exports.create = function (req, res) {
+exports.create = function (req, res, next) {
   if(!req.user) return res.redirect("/");
 
   var options = [];
@@ -116,11 +116,11 @@ exports.create = function (req, res) {
       res.redirect("/poll/" + createdPoll._id);
     })
     .catch(function(err) {
-      res.send(err);
+      next(err);
     });
 };
 
-exports.delete = function (req, res) {
+exports.delete = function (req, res, next) {
   if (!req.user) return res.send("/");
 
   Poll.findByIdAndRemove(req.params.id)
@@ -128,6 +128,6 @@ exports.delete = function (req, res) {
       res.send("/user/" + req.user._id);
     })
     .catch(function(err) {
-      res.send(err);
+      next(err);
     });
 };

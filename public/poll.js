@@ -3,9 +3,32 @@ var id = url.slice(-24);
 var title = document.querySelector("#title").textContent;
 var pieChart;
 
+Chart.plugins.register({
+  afterDraw: function(chart) {
+    var empty = chart.data.datasets[0].data.every(function(val) {
+      return !val;
+    });
+    if(empty) {
+      var ctx = chart.chart.ctx;
+      var width = chart.chart.width;
+      var height = chart.chart.height
+      chart.clear();
+
+      ctx.save();
+      ctx.textAlign = "center";
+      ctx.fillStyle = "#171316";
+      ctx.fillText("No votes to display", width / 2, height / 2);
+      ctx.restore();
+    }
+  }
+});
+
 axios.get("/poll/data/" + id)
   .then(function(res) {
     setupChart(res.data);
+  })
+  .catch(function(err) {
+    console.log(err);
   });
 
 document.querySelector("#submit-btn").addEventListener("click", function() {
@@ -22,7 +45,7 @@ document.querySelector("#submit-btn").addEventListener("click", function() {
       updateChart(res.data);
     })
     .catch(function(err) {
-      console.log(err);
+      console.log(err.message);
     });
 });
 
@@ -42,6 +65,9 @@ if(deleteBtn) {
     axios.delete("/poll/" + id)
       .then(function(res) {
         window.location.href = res.data;
+      })
+      .catch(function(err) {
+        console.log(err.message);
       });
   });
 }
@@ -70,7 +96,7 @@ function setupChart(poll) {
       borderWidth: 1
     }]
   };
-
+  
   poll.options.forEach(function(option) {
     data.labels.push(option.text);
     data.datasets[0].data.push(option.count);
